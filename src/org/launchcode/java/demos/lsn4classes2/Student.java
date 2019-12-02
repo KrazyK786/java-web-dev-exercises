@@ -30,20 +30,76 @@ public class Student {
 
 
      //TODO: Uncomment and complete the getGradeLevel method here:
-//    public String getGradeLevel() {
-//        // Determine the grade level of the student based on numberOfCredits
-//    }
+    public String getGradeLevel() {
+        int creds = this.numberOfCredits;
+        // Determine the grade level of the student based on numberOfCredits
+        /*Freshman (0-29 credits), Sophomore (30-59 credits), Junior (60-89 credits), or Senior (90+ credits)*/
+        if (creds <= 29){
+            return "Freshman";
+        }
+        else if (creds <= 59){
+            return "Sophomore";
+        }
+        else if (creds <= 89){
+            return "Junior";
+        }
+        else{
+            return "Senior";
+        }
+    }
 
     // TODO: Complete the addGrade method.
     public void addGrade(int courseCredits, double grade) {
         // Update the appropriate fields: numberOfCredits, gpa
+        double classQualityScore = grade * courseCredits;
+        double currentTotalQualityScore = this.gpa * this.numberOfCredits;
+        double newTotalQualityScore = currentTotalQualityScore + classQualityScore;
+        this.numberOfCredits += courseCredits;
+        this.gpa = newTotalQualityScore / this.numberOfCredits;
     }
 
     // TODO: Add your custom 'toString' method here. Make sure it returns a well-formatted String rather
     //  than just the class fields.
 
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", studentId=" + studentId +
+                ", numberOfCredits=" + numberOfCredits +
+                ", gpa=" + gpa +
+                '}';
+    }
+
+
     // TODO: Add your custom 'equals' method here. Consider which fields should match in order to call two
     //  Student objects equal.
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Student student = (Student) o;
+
+        if (studentId != student.studentId) return false;
+        if (numberOfCredits != student.numberOfCredits) return false;
+        if (Double.compare(student.gpa, gpa) != 0) return false;
+        return name != null ? name.equals(student.name) : student.name == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = name != null ? name.hashCode() : 0;
+        result = 31 * result + studentId;
+        result = 31 * result + numberOfCredits;
+        temp = Double.doubleToLongBits(gpa);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 
     public String getName() {
         return name;
@@ -85,5 +141,12 @@ public class Student {
         System.out.println(sally);
         sally.addGrade(25, 3.8);
         System.out.println(sally);
+
+        System.out.println(sally.getGradeLevel());
+
+        Student knuckles = new Student("Knuckles", 2,15,3.5);
+        System.out.println(knuckles.getGradeLevel());
+        knuckles.addGrade(4,4.0);
+        System.out.println(knuckles.getGpa());
     }
 }

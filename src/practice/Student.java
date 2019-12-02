@@ -11,7 +11,7 @@ public class Student {
         return name;
     }
 
-    public void setName(String aName){
+    void setName(String aName){
         name = aName;
     }
 
@@ -20,19 +20,29 @@ public class Student {
         return studentId;
     }
 
-    public void setStudentId(int aStudentId){
+    void setStudentId(int aStudentId){
         studentId = aStudentId;
     }
 
     // get/set numberOfCredits
-    public int getNumberOfCredits(){
-        return numberOfCredits;
-    }
+    public int getNumberOfCredits(){return numberOfCredits;}
 
-    public void setNumberOfCredits(int aNumberOfCredits){
+    void setNumberOfCredits(int aNumberOfCredits){
         numberOfCredits = aNumberOfCredits;
     }
 
     // get/set gpa
-//    public int
+    public double getGpa(){return gpa;}
+
+    void setGpa(double aGpa){gpa = aGpa;}
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", studentId=" + studentId +
+                ", numberOfCredits=" + numberOfCredits +
+                ", gpa=" + gpa +
+                '}';
+    }
 }
